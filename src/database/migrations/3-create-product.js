@@ -34,10 +34,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      image: {
-        type: Sequelize.TEXT,
-        allowNull: false,
-      },
 
       // Tech specs section
       screen: {

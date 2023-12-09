@@ -1,4 +1,4 @@
-import {Table, Column, Model, Is, BelongsTo, BelongsToMany, ForeignKey} from 'sequelize-typescript';
+import {Table, Column, Model, Is, BelongsTo, BelongsToMany, ForeignKey, HasOne} from 'sequelize-typescript';
 import {DataTypes} from "sequelize";
 
 import Product from "./Product.model";
@@ -33,12 +33,8 @@ export default class Color extends Model {
     })
     hex: string;
 
-    @ForeignKey(() => Product)
-    @Column
-    product_id: number;
-
-    @BelongsTo(() => Product, 'product_id')
-    product: Product
+    // @HasOne(() => Product, 'color_id')
+    // product: Product
 
     @BelongsToMany(() => Product, () => Product_Color)
     products: Product[];

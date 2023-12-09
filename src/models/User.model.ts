@@ -42,7 +42,7 @@ export default class User extends Model {
     })
     salt: string;
 
-    @HasMany(() => Order, 'user_id')
+    @HasMany(() => Order, 'owner_id')
     orders: Order[]
 
     @BeforeUpdate

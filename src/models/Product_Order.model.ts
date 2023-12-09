@@ -11,9 +11,9 @@ import Order from "./Order.model";
 export default class Product_Order extends Model {
     @ForeignKey(() => Product)
     @Column(DataTypes.UUID)
-    product: number;
+    product_id: number;
 
     @ForeignKey(() => Order)
     @Column(DataTypes.UUID)
-    color: number;
+    order_id: number;
 }

@@ -21,9 +21,9 @@ export default class Order extends Model {
 
     @ForeignKey(() => User)
     @Column
-    user_id: number;
+    owner_id: number;
 
-    @BelongsTo(() => User, 'user_id')
+    @BelongsTo(() => User, 'owner_id')
     user: User
 
     @BelongsToMany(() => Product, () => Product_Order)

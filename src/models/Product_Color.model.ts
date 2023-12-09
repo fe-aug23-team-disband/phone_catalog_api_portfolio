@@ -12,9 +12,9 @@ import Color from "./Color.model";
 export default class Product_Color extends Model {
     @ForeignKey(() => Product)
     @Column(DataTypes.UUID)
-    product: number;
+    product_id: number;
 
     @ForeignKey(() => Color)
     @Column(DataTypes.UUID)
-    color: number;
+    color_id: number;
 }

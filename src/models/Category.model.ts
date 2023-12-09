@@ -1,4 +1,4 @@
-import {Table, Column, Model, BelongsTo, ForeignKey} from 'sequelize-typescript';
+import {Table, Column, Model, BelongsTo, ForeignKey, HasOne} from 'sequelize-typescript';
 import {DataTypes} from "sequelize";
 
 import Product from "./Product.model";
@@ -23,10 +23,6 @@ export default class Category extends Model {
     })
     name: string;
 
-    @ForeignKey(() => Product)
-    @Column
-    product_id: number;
-
-    @BelongsTo(() => Product, 'product_id')
+    @HasOne(() => Product, 'category_id')
     product: Product
 }

@@ -5,13 +5,22 @@ import sequelize from "./database/db";
 require('dotenv').config();
 
 import express from 'express';
+import Product from "./models/Product.model";
+import Discount from "./models/Discount.model";
+import Category from "./models/Category.model";
+import Color from "./models/Color.model";
 
 const app = express();
 
 app.use(express.json());
 
 app.get('/', async (req, res) => {
-    res.send("Hello World")
+    const test = await Product.findAll({
+        include: [Discount, Category, Color],
+
+    })
+
+    res.send(test)
 
 })
 

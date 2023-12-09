@@ -1,4 +1,4 @@
-import {BelongsTo, Column, ForeignKey, Model, Table} from "sequelize-typescript";
+import {BelongsTo, Column, ForeignKey, HasOne, Model, Table} from "sequelize-typescript";
 import {DataTypes} from "sequelize";
 
 import Product from "./Product.model";
@@ -23,12 +23,8 @@ export default class Discount extends Model {
             min: 1
         }
     })
-    value: string;
+    value: number;
 
-    @ForeignKey(() => Product)
-    @Column
-    product_id: number;
-
-    @BelongsTo(() => Product, 'product_id')
+    @HasOne(() => Product, 'discount_id')
     product: Product
 }

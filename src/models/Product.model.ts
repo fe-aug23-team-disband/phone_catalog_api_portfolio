@@ -1,4 +1,14 @@
-import { BelongsToMany, Column, HasMany, HasOne, Model, Table} from "sequelize-typescript";
+import {
+    BeforeCreate,
+    BeforeUpdate, BelongsTo,
+    BelongsToMany,
+    Column,
+    ForeignKey,
+    HasMany,
+    HasOne,
+    Model,
+    Table
+} from "sequelize-typescript";
 import {DataTypes} from "sequelize";
 
 import Category from "./Category.model";
@@ -9,6 +19,8 @@ import Order from "./Order.model";
 import Product_Color from "./Product_Color.model";
 import Product_Order from "./Product_Order.model";
 import Discount from "./Discount.model";
+import {md5} from "js-md5";
+import slugify from "slugify";
 
 @Table({
     modelName: 'Product',
@@ -58,11 +70,14 @@ export default class Product extends Model {
     })
     priceRegular: number;
 
-    @Column({
-        type: DataTypes.TEXT,
-        allowNull: false,
-    })
-    image: string;
+    @Column(DataTypes.VIRTUAL)
+    get priceDiscount(): number {
+        return this.priceRegular - (this.priceRegular * this.discount.value / 100)
+    };
+    // @ts-ignore
+    set priceDiscount(value) {
+        throw new Error("This value is not modifiable")
+    }
 
     // Tech specs section
     @Column({
@@ -109,14 +124,30 @@ export default class Product extends Model {
     cell: string[];
 
     // Refs
-    @HasOne(() => Category, 'product_id')
+    @ForeignKey(() => Category)
+    @Column
+    category_id: number;
+
+    @BelongsTo(() => Category, 'category_id')
     category: Category;
 
-    @HasOne(() => Color, "product_id")
-    color: Color;
 
-    @HasOne(() => Discount, 'product_id')
+    // @ForeignKey(() => Color)
+    // @Column
+    // color_id: number;
+    //
+    // @BelongsTo(() => Color, 'color_id')
+    // color: Color;
+
+
+    @ForeignKey(() => Discount)
+    @Column
+    discount_id: number;
+
+    @BelongsTo(() => Discount, 'discount_id')
     discount: Discount;
+
+    // ------------------------------------------------------------------------------
 
     @HasMany(() => Description, 'product_id')
     description: Description[]
@@ -124,9 +155,19 @@ export default class Product extends Model {
     @HasMany(() => Image, 'product_id')
     images: Image[]
 
+    // ------------------------------------------------------------------------------
+
     @BelongsToMany(() => Color, () => Product_Color)
     colors: Color[];
 
     @BelongsToMany(() => Order, () => Product_Order)
     orders: Order[]
+
+    // ------------------------------------------------------------------------------
+
+    @BeforeUpdate
+    @BeforeCreate
+    static toSlug(instance: Product) {
+        instance.namespaceId = slugify(instance.name, { lower: true, replacement: '-' })
+    }
 }
