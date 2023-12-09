@@ -14,6 +14,4 @@ const sequelize = new Sequelize({
     models: [path.join(__dirname, '../models/*.model.ts')]
 });
 
-console.log(path.join(__dirname, '../models/*.model.ts'))
-
 export default sequelize

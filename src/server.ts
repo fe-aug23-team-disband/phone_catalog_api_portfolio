@@ -17,11 +17,9 @@ app.use(express.json());
 app.get('/', async (req, res) => {
     const test = await Product.findAll({
         include: [Discount, Category, Color],
-
     })
 
     res.send(test)
-
 })
 
 app.listen(process.env.PORT, async () => {
