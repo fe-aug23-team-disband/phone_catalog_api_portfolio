@@ -6,7 +6,7 @@ module.exports = {
     return queryInterface.bulkInsert("Categories", [
       {
         id: "ebbe8b83-d5c7-4533-bb7c-ebc35f01bb64",
-        name: "mobile phones",
+        name: "phones",
       },
       {
         id: "22cb577b-8742-4248-88d9-4afce0575821",

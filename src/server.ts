@@ -1,29 +1,28 @@
 'use strict';
 
 import sequelize from "./database/db";
+import ProductRouter from "./routers/Product.router";
 
 require('dotenv').config();
 
 import express from 'express';
-import Product from "./models/Product.model";
-import Discount from "./models/Discount.model";
-import Category from "./models/Category.model";
-import Color from "./models/Color.model";
 
 const app = express();
 
 app.use(express.json());
 
-app.get('/', async (req, res) => {
-    const test = await Product.findAll({
-        include: [Discount, Category, Color],
-    })
+app.use('/products', ProductRouter)
 
-    res.send(test)
+app.get('/', async (req, res) => {
+    res.send({
+        links: {
+            products: [''],
+            orders: [''],
+        }
+    })
 })
 
 app.listen(process.env.PORT, async () => {
-    // eslint-disable-next-line no-console
     try {
         await sequelize.authenticate();
         console.log('Sequelize-PostgresSQL Connection has been established successfully.');
