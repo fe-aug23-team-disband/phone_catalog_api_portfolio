@@ -21,7 +21,7 @@ export default class Image extends Model {
         type: DataTypes.STRING,
         allowNull: false,
     })
-    title: string;
+    string: string;
 
     @ForeignKey(() => Product)
     @Column

@@ -66,6 +66,17 @@ module.exports = {
         allowNull: false,
       },
 
+      time_created: {
+        type: Sequelize.DATE,
+        defaultValue: new Date(),
+        allowNull: false,
+      },
+      time_updated: {
+        type: Sequelize.DATE,
+        defaultValue: new Date(),
+        allowNull: false,
+      },
+
       // Ref section
       category_id: {
         type: Sequelize.UUID,
