@@ -114,3 +114,25 @@ export const getSpecials = (specialsType: 'latest' | 'discount') => {
         return res.sendStatus(500)
     }
 }
+
+export const getRecommended = async (req: Request, res: Response) => {
+    const {
+        category,
+        discountValue = 10
+    } = req.query
+
+    if (!category) {
+        return res.sendStatus(400)
+    }
+
+    const products = await ProductService.getRecommended({
+        category: category.toString(),
+        discount: +discountValue
+    })
+
+    if (products) {
+        return res.send(products)
+    }
+
+    return res.sendStatus(500)
+}
