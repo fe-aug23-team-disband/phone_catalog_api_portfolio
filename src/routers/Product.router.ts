@@ -9,8 +9,8 @@ router.get('/', get);
 
 router.get('/:namespaceId', getByNamespaceId);
 
-router.get('/latest', getLatest);
+router.get('/specials/latest', getLatest);
 
-router.get('/hot-price', getHotPrice);
+router.get('/specials/hot-price', getHotPrice);
 
 export default router

@@ -4,29 +4,38 @@ import Description from "../models/Description.model";
 import Image from "../models/Image.model";
 import Color from "../models/Color.model";
 import Discount from "../models/Discount.model";
-import {Op} from "sequelize";
+import {Op, OrderItem} from "sequelize";
 
 type QueryParams = {
     category: string
-    query?: string,
     limit?: number,
     offset?: number,
+    filters?: {
+        query?: string,
+        byDate?: boolean,
+        byDiscount?: boolean
+    }
 }
 
 type WhereStatement = {
     [key: string]: {
-        [Op.like]: string
+        [Op.iLike]: string
     }
 }
 
-export const get = async ({ query = '', limit = 10, offset = 0, category }: QueryParams) => {
+export const get = async ({ filters, limit = 10, offset = 0, category }: QueryParams) => {
     try {
         let whereStatement: WhereStatement = {}
+        let OrderStatement: OrderItem[] = []
 
-        if (query) {
+        if (filters?.query) {
             whereStatement.name = {
-                [Op.like]: `%${query}%`
+                [Op.iLike]: `%${filters.query}%`
             }
+        }
+
+        if (filters?.byDiscount) {
+            OrderStatement.push([{ model: Discount, as: 'discount' }, 'value', "DESC"])
         }
 
         const products = await Product.findAll({
@@ -45,6 +54,7 @@ export const get = async ({ query = '', limit = 10, offset = 0, category }: Quer
                 },
                 {
                     model: Discount,
+                    as: 'discount',
                     attributes: ['value'],
                 }
             ],
@@ -54,13 +64,12 @@ export const get = async ({ query = '', limit = 10, offset = 0, category }: Quer
             },
             limit,
             offset,
-            order: [
-                ["id", 'DESC']
-            ],
+            order: OrderStatement
         })
 
         return products
     } catch (e) {
+        console.log(e)
         return null
     }
 }

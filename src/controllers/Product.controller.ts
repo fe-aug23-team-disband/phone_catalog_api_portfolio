@@ -16,9 +16,11 @@ export const get = async (req: Request, res: Response) => {
 
     const products = await ProductService.get({
         category: category.toString(),
-        query: query.toString(),
         limit: +limit,
-        offset
+        offset,
+        filters: {
+            query: query.toString()
+        }
     })
 
     if (products) {
@@ -86,4 +88,23 @@ export const getByNamespaceId = async (req: Request, res: Response) => {
 
 export const getLatest = async (req: Request, res: Response) => {}
 
-export const getHotPrice = async (req: Request, res: Response) => {}
+export const getHotPrice = async (req: Request, res: Response) => {
+    const {
+        category,
+        limit = 10
+    } = req.query
+
+    if (!category) {
+        return res.sendStatus(400)
+    }
+
+    const products = await ProductService.get({
+        category: category.toString(),
+        limit: +limit,
+        filters: {
+            byDiscount: true
+        }
+    })
+
+    return res.send(products)
+}
