@@ -9,13 +9,14 @@ module.exports = {
     return queryInterface.bulkInsert("Users", [{
       id: "ebbe8b83-d5c7-4533-bb7c-ebc35f01bb64",
       name: "admin",
-      email: md5("admin@admin.com" + salt),
-      password: "admin",
+      email: "admin@admin.com",
+      password: md5('password' + salt),
       salt: salt
     }])
   },
 
   async down (queryInterface) {
-    return queryInterface.bulkDelete('Users', null, {});
+    await queryInterface.bulkDelete('Orders', null, {});
+    await queryInterface.bulkDelete('Users', null, {});
   }
 };

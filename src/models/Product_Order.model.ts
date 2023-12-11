@@ -16,4 +16,7 @@ export default class Product_Order extends Model {
     @ForeignKey(() => Order)
     @Column(DataTypes.UUID)
     order_id: number;
+
+    @Column
+    count: number
 }
