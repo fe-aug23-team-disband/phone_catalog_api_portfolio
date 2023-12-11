@@ -1,5 +1,5 @@
 import express from 'express';
-import { get, getByNamespaceId, getSpecials } from '../controllers/Product.controller'
+import {get, getByNamespaceId, getRecommended, getSpecials} from '../controllers/Product.controller'
 
 const router = express.Router();
 
@@ -8,6 +8,8 @@ router.use(express.json());
 router.get('/', get);
 
 router.get('/:namespaceId', getByNamespaceId);
+
+router.get('/:namespaceId/recommended/', getRecommended);
 
 router.get('/specials/latest', getSpecials('latest'));
 

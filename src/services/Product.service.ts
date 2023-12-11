@@ -77,7 +77,7 @@ export const get = async ({ filters, limit = 10, offset = 0, category }: QueryPa
 
 export const getByNamespaceId = async ({ namespaceId }: { namespaceId: string }) => {
     try {
-        return await Product.findOne({
+        return Product.findOne({
             include: [
                 {
                     model: Image,
@@ -102,6 +102,43 @@ export const getByNamespaceId = async ({ namespaceId }: { namespaceId: string })
             attributes: {
                 exclude: ['category_id', 'discount_id']
             },
+        })
+    } catch (e) {
+        return null
+    }
+}
+
+export const getRecommended = async ({ category, discount }: { discount: number, category: string }) => {
+    try {
+        return Product.findAll({
+            include: [
+                {
+                    model: Category,
+                    attributes: ['name'],
+                    where: {
+                        name: category,
+                    }
+                },
+                {
+                    model: Image,
+                    attributes: ['string'],
+                    limit: 1,
+                },
+                {
+                    model: Discount,
+                    as: 'discount',
+                    attributes: ['value'],
+                    where: {
+                        value: {
+                            [Op.lte]: discount
+                        }
+                    }
+                }
+            ],
+            attributes: {
+                exclude: ['category_id', 'discount_id']
+            },
+            limit: 5,
         })
     } catch (e) {
         return null
