@@ -38,6 +38,10 @@ export const get = async ({ filters, limit = 10, offset = 0, category }: QueryPa
             OrderStatement.push([{ model: Discount, as: 'discount' }, 'value', "DESC"])
         }
 
+        if (filters?.byDate) {
+            OrderStatement.push(['time_created', "DESC"])
+        }
+
         const products = await Product.findAll({
             include: [
                 {

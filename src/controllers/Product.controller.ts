@@ -86,7 +86,26 @@ export const getByNamespaceId = async (req: Request, res: Response) => {
     return res.sendStatus(400)
 }
 
-export const getLatest = async (req: Request, res: Response) => {}
+export const getLatest = async (req: Request, res: Response) => {
+    const {
+        category,
+        limit = 10
+    } = req.query
+
+    if (!category) {
+        return res.sendStatus(400)
+    }
+
+    const products = await ProductService.get({
+        category: category.toString(),
+        limit: +limit,
+        filters: {
+            byDate: true
+        }
+    })
+
+    return res.send(products)
+}
 
 export const getHotPrice = async (req: Request, res: Response) => {
     const {

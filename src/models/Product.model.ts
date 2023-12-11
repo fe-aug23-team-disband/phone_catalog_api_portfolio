@@ -5,7 +5,6 @@ import {
     Column,
     ForeignKey,
     HasMany,
-    HasOne,
     Model,
     Table
 } from "sequelize-typescript";
@@ -19,13 +18,13 @@ import Order from "./Order.model";
 import Product_Color from "./Product_Color.model";
 import Product_Order from "./Product_Order.model";
 import Discount from "./Discount.model";
-import {md5} from "js-md5";
 import slugify from "slugify";
 
 @Table({
     modelName: 'Product',
     tableName: 'Products',
-    timestamps: false
+    createdAt: "time_created",
+    updatedAt: "time_updated"
 })
 export default class Product extends Model {
     @Column({
@@ -130,15 +129,6 @@ export default class Product extends Model {
 
     @BelongsTo(() => Category, 'category_id')
     category: Category;
-
-
-    // @ForeignKey(() => Color)
-    // @Column
-    // color_id: number;
-    //
-    // @BelongsTo(() => Color, 'color_id')
-    // color: Color;
-
 
     @ForeignKey(() => Discount)
     @Column
