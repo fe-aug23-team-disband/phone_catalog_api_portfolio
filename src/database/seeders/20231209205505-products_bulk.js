@@ -5,6 +5,8 @@ const slugify = require("slugify");
 const path = require("path");
 const {readdir, readFile} = require("node:fs/promises");
 
+const convertCssColorNameToHex = require('convert-css-color-name-to-hex');
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface) {
@@ -17,6 +19,26 @@ module.exports = {
         const rawData = await readFile(path.join(pathToData, file))
         const data = JSON.parse(rawData.toString())
         const product_id= uuidv4()
+        const colors_ids = []
+        const hexColors = data.colorsAvailable.map((color) => {
+          let res = convertCssColorNameToHex(color);
+
+          if (color === 'midnightgreen') {
+            res = "#004953"
+          }
+
+          if (color === 'spacegray') {
+            res = "#5f5f5f"
+          }
+
+          if (color === 'rosegold') {
+            res = "#f1a886"
+          }
+          return {
+            name: color,
+            hex: res
+          }
+        })
 
         await queryInterface.bulkInsert("Products", [
           {
@@ -67,6 +89,25 @@ module.exports = {
               id,
               product_id,
               string: img_buffer.toString('base64')
+            }
+          ])
+        }
+
+        for (const color of hexColors) {
+          const id = uuidv4()
+
+          await queryInterface.bulkInsert("Colors", [
+            {
+              id,
+              name: color.name,
+              hex: color.hex
+            }
+          ])
+
+          await queryInterface.bulkInsert("Product_Color", [
+            {
+              product_id: product_id,
+              color_id: id
             }
           ])
         }

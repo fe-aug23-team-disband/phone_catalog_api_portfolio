@@ -1,5 +1,5 @@
 import express from 'express';
-import { get, getByNamespaceId, getHotPrice, getLatest } from '../controllers/Product.controller'
+import { get, getByNamespaceId, getSpecials } from '../controllers/Product.controller'
 
 const router = express.Router();
 
@@ -9,8 +9,8 @@ router.get('/', get);
 
 router.get('/:namespaceId', getByNamespaceId);
 
-router.get('/specials/latest', getLatest);
+router.get('/specials/latest', getSpecials('latest'));
 
-router.get('/specials/hot-price', getHotPrice);
+router.get('/specials/hot-price', getSpecials('discount'));
 
 export default router

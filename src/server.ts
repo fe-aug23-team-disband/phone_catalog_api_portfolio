@@ -1,11 +1,11 @@
 'use strict';
 
-import sequelize from "./database/db";
-import ProductRouter from "./routers/Product.router";
-
 require('dotenv').config();
 
 import express from 'express';
+import sequelize from "./database/db";
+
+import ProductRouter from "./routers/Product.router";
 
 const app = express();
 
@@ -16,8 +16,36 @@ app.use('/products', ProductRouter)
 app.get('/', async (req, res) => {
     res.send({
         links: {
-            products: [''],
-            orders: [''],
+            products: {
+                retrieveProducts: {
+                    link: '/products',
+                    queryParams: {
+                        category: ['phones', 'tables', 'accessories'],
+                        limit: 'number | DEFAULT: 10',
+                        page: 'number',
+                        query: 'string'
+                    }
+                },
+                retrieveSingleProduct: {
+                    link: '/products/:namespaceId',
+                    queryParams: null,
+                },
+                retrieveHotPrice: {
+                    link: '/products/specials/hot-price',
+                    queryParams: {
+                        category: ['phones', 'tables', 'accessories'],
+                        limit: 'number | DEFAULT: 10',
+                    }
+                },
+                retrieveLatest: {
+                    link: '/products/specials/latest',
+                    queryParams: {
+                        category: ['phones', 'tables', 'accessories'],
+                        limit: 'number | DEFAULT: 10',
+                    }
+                },
+            },
+            orders: {},
         }
     })
 })

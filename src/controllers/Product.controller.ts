@@ -25,7 +25,6 @@ export const get = async (req: Request, res: Response) => {
 
     if (products) {
         const paginationNav = {
-            limit,
             nextPage: Math.floor(offset/+limit) + 1,
             prevPage: Math.floor(offset/+limit) - 1 >= 0 ? Math.floor(offset/+limit) - 1 : null
         }
@@ -73,8 +72,40 @@ export const get = async (req: Request, res: Response) => {
 export const getByNamespaceId = async (req: Request, res: Response) => {
     const { namespaceId } = req.params
 
-    if (namespaceId) {
-        const products = await ProductService.getByNamespaceId({ namespaceId })
+    const products = await ProductService.getByNamespaceId({ namespaceId })
+
+    if (products) {
+        return res.send(products)
+    }
+
+    return res.sendStatus(500)
+}
+
+export const getSpecials = (specialsType: 'latest' | 'discount') => {
+    return async (req: Request, res: Response) => {
+        const filter: { byDiscount?: boolean, byDate?: boolean } = {}
+        const {
+            category,
+            limit = 10
+        } = req.query
+
+        if (!category) {
+            return res.sendStatus(400)
+        }
+
+        switch (specialsType) {
+            case "discount":
+                filter.byDiscount = true
+                break
+            case "latest":
+                filter.byDate = true
+        }
+
+        const products = await ProductService.get({
+            category: category.toString(),
+            limit: +limit,
+            filters: filter
+        })
 
         if (products) {
             return res.send(products)
@@ -82,48 +113,4 @@ export const getByNamespaceId = async (req: Request, res: Response) => {
 
         return res.sendStatus(500)
     }
-
-    return res.sendStatus(400)
-}
-
-export const getLatest = async (req: Request, res: Response) => {
-    const {
-        category,
-        limit = 10
-    } = req.query
-
-    if (!category) {
-        return res.sendStatus(400)
-    }
-
-    const products = await ProductService.get({
-        category: category.toString(),
-        limit: +limit,
-        filters: {
-            byDate: true
-        }
-    })
-
-    return res.send(products)
-}
-
-export const getHotPrice = async (req: Request, res: Response) => {
-    const {
-        category,
-        limit = 10
-    } = req.query
-
-    if (!category) {
-        return res.sendStatus(400)
-    }
-
-    const products = await ProductService.get({
-        category: category.toString(),
-        limit: +limit,
-        filters: {
-            byDiscount: true
-        }
-    })
-
-    return res.send(products)
 }
