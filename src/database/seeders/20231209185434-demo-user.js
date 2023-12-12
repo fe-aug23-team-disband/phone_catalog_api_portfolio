@@ -1,13 +1,15 @@
 'use strict';
 
 const {md5} = require("js-md5");
+const {v4: uuidv4} = require("uuid");
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface) {
     const salt = md5('salt')
+    const id= uuidv4()
 
     return queryInterface.bulkInsert("Users", [{
-      id: "ebbe8b83-d5c7-4533-bb7c-ebc35f01bb64",
+      id,
       name: "admin",
       email: md5("admin@admin.com" + salt),
       password: "admin",
