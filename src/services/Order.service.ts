@@ -82,17 +82,27 @@ export const create = async ({ user_id, products }: { user_id: string, products:
 }
 
 export const remove = async ({ id }: { id: string }) => {
+    const t = await sequelize.transaction();
+
     try {
         await Product_Order.destroy({
             where: {
                 order_id: id
-            }
+            },
+            transaction: t,
         })
 
-        return Order.destroy({
-            where: { id }
+        const res = await Order.destroy({
+            where: { id },
+            transaction: t,
         })
+
+        console.log(res)
+
+        await t.commit()
+        return res
     } catch (e) {
+        await t.rollback()
         return null
     }
 }

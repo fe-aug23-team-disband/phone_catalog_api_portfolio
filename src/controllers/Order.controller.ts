@@ -27,19 +27,23 @@ export const create = async (req: Request, res: Response) => {
     const order = await OrderService.create({ user_id, products })
 
     if (order) {
-        return res.send(order)
+        return res.status(201).send(order)
     }
 
-    return res.sendStatus(300)
+    return res.sendStatus(500)
 }
 
-export const remove = async (req: Request, res: Response) => {
+export const remove = async (req: Request, res: Response)    => {
     const { id } = req.params
     const order = await OrderService.remove({ id })
+
+    if (order === null) {
+        return res.sendStatus(500)
+    }
 
     if (order) {
         return res.sendStatus(200)
     }
 
-    return res.sendStatus(500)
+    return res.sendStatus(404)
 }
