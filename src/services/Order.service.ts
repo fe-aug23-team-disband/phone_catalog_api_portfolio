@@ -65,7 +65,6 @@ export const create = async ({ user_id, products }: { user_id: string, products:
         }, { transaction: t })
 
         await Product_Order.bulkCreate(products.map(([product_id, count]) => {
-            console.log(product_id, count)
             return {
                 order_id: order.id,
                 product_id,
@@ -76,6 +75,8 @@ export const create = async ({ user_id, products }: { user_id: string, products:
         await t.commit()
         return order
     } catch (e) {
+        console.log(e)
+
         await t.rollback()
         return null;
     }
@@ -97,11 +98,11 @@ export const remove = async ({ id }: { id: string }) => {
             transaction: t,
         })
 
-        console.log(res)
-
         await t.commit()
         return res
     } catch (e) {
+        console.log(e)
+
         await t.rollback()
         return null
     }
