@@ -6,12 +6,14 @@ import express from 'express';
 import sequelize from "./database/db";
 
 import ProductRouter from "./routers/Product.router";
+import OrderRouter from "./routers/Order.router";
 
 const app = express();
 
 app.use(express.json());
 
 app.use('/products', ProductRouter)
+app.use('/orders', OrderRouter)
 
 app.get('/', async (req, res) => {
     res.send({
@@ -29,6 +31,13 @@ app.get('/', async (req, res) => {
                 retrieveSingleProduct: {
                     link: '/products/:namespaceId',
                     queryParams: null,
+                },
+                retrieveRecommended: {
+                    link: '/products/:namespaceId/recommended',
+                    queryParams: {
+                        category: ['phones', 'tables', 'accessories'],
+                        discountValue: 'number | DEFAULT: 10',
+                    }
                 },
                 retrieveHotPrice: {
                     link: '/products/specials/hot-price',
