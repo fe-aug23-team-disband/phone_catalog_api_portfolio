@@ -4,6 +4,7 @@ require('dotenv').config();
 
 import express from 'express';
 import sequelize from "./database/db";
+import cors from 'cors';
 
 import ProductRouter from "./routers/Product.router";
 import OrderRouter from "./routers/Order.router";
@@ -11,6 +12,9 @@ import OrderRouter from "./routers/Order.router";
 const app = express();
 
 app.use(express.json());
+app.use(cors({
+    origin: false
+}))
 
 app.use('/products', ProductRouter)
 app.use('/orders', OrderRouter)
