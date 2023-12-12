@@ -19,7 +19,6 @@ module.exports = {
         const rawData = await readFile(path.join(pathToData, file))
         const data = JSON.parse(rawData.toString())
         const product_id= uuidv4()
-        const colors_ids = []
         const hexColors = data.colorsAvailable.map((color) => {
           let res = convertCssColorNameToHex(color);
 
@@ -58,9 +57,8 @@ module.exports = {
             zoom: data.zoom,
             cell: data.cell,
 
-            color_id: "ccdf0e75-20be-4138-acd3-4822b8e1c9ee",
-            category_id: "ebbe8b83-d5c7-4533-bb7c-ebc35f01bb64",
-            discount_id: "9742ae9a-32e2-4326-83ac-238748363c34"
+            category_id: "c683437a-b2bb-4a44-9eed-d57226ac2443",
+            discount_id: "76580edd-b8df-4f7b-81a5-c8e4268c821b"
           }
         ])
 
@@ -118,6 +116,7 @@ module.exports = {
   },
 
   async down (queryInterface) {
+    await queryInterface.bulkDelete('Product_Order', null, {});
     await queryInterface.bulkDelete('Images', null, {});
     await queryInterface.bulkDelete('Descriptions', null, {});
     await queryInterface.bulkDelete('Product_Color', null, {});

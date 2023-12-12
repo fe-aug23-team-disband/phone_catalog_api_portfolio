@@ -86,14 +86,6 @@ module.exports = {
           key: 'id'
         },
       },
-      color_id: {
-        type: Sequelize.UUID,
-        allowNull: false,
-        references: {
-          model: 'Colors',
-          key: 'id'
-        },
-      },
       discount_id: {
         type: Sequelize.UUID,
         allowNull: false,

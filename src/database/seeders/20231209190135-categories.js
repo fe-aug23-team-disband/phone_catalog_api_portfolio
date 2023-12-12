@@ -3,27 +3,23 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface) {
-    const cat_1_id = uuidv4()
-    const cat_2_id = uuidv4()
-    const cat_3_id = uuidv4()
-
-    return queryInterface.bulkInsert("Categories", [
+    await queryInterface.bulkInsert("Categories", [
       {
-        id: cat_1_id,
+        id: "c683437a-b2bb-4a44-9eed-d57226ac2443",
         name: "phones",
       },
       {
-        id: cat_2_id,
+        id: "5fc3c45c-448f-400d-b6fd-d56bbf36fead",
         name: "tablets",
       },
       {
-        id: cat_3_id,
+        id: "540521ea-72f5-4d35-8fca-827b0cbc2a1c",
         name: "accessories",
       }
     ])
   },
 
   async down (queryInterface) {
-    return queryInterface.bulkDelete('Categories', null, {});
+    await queryInterface.bulkDelete('Categories', null, {});
   }
 };
