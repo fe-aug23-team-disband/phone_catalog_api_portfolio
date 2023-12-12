@@ -12,9 +12,7 @@ import OrderRouter from "./routers/Order.router";
 const app = express();
 
 app.use(express.json());
-app.use(cors({
-    origin: false
-}))
+app.use(cors())
 
 app.use('/products', ProductRouter)
 app.use('/orders', OrderRouter)
