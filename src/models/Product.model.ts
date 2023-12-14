@@ -79,7 +79,7 @@ export default class Product extends Model {
         return this.priceRegular - (this.priceRegular * this.discount.value / 100)
     };
     // @ts-ignore
-    set priceDiscount() {
+    set priceDiscount(value) {
         throw new Error("This value is not modifiable")
     }
 
