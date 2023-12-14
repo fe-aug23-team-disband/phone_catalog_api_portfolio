@@ -108,16 +108,14 @@ export const getByNamespaceId = async ({ namespaceId }: { namespaceId: string })
     }
 }
 
-export const getRecommended = async ({ category, discount }: { discount: number, category: string }) => {
+export const getRecommended = async ({ basename, limit }: { basename: string, limit: number }) => {
     try {
         return Product.findAll({
+            where: { basename },
             include: [
                 {
                     model: Category,
                     attributes: ['name'],
-                    where: {
-                        name: category,
-                    }
                 },
                 {
                     model: Image,
@@ -128,17 +126,12 @@ export const getRecommended = async ({ category, discount }: { discount: number,
                     model: Discount,
                     as: 'discount',
                     attributes: ['value'],
-                    where: {
-                        value: {
-                            [Op.lte]: discount
-                        }
-                    }
                 }
             ],
             attributes: {
                 exclude: ['category_id', 'discount_id']
             },
-            limit: 5,
+            limit,
         })
     } catch (e) {
         return null
