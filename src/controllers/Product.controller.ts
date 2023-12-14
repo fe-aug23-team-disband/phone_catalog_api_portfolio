@@ -116,23 +116,28 @@ export const getSpecials = (specialsType: 'latest' | 'discount') => {
 }
 
 export const getRecommended = async (req: Request, res: Response) => {
-    const {
-        category,
-        discountValue = 10
-    } = req.query
+    const { namespaceId } = req.params
+    const { limit = 10 } = req.query
+    const product = await ProductService.getByNamespaceId({ namespaceId })
 
-    if (!category) {
-        return res.sendStatus(400)
+    if (!product) {
+        return res.sendStatus(500)
     }
 
-    const products = await ProductService.getRecommended({
-        category: category.toString(),
-        discount: +discountValue
+    const recommended = await ProductService.getRecommended({
+        basename: product.basename,
+        limit: +limit
     })
 
-    if (products) {
-        return res.send(products)
+    if (recommended) {
+        res.send({
+            count: recommended.length,
+            data: recommended
+        })
+    } else {
+        res.send({
+            count: 0,
+            data: []
+        })
     }
-
-    return res.sendStatus(500)
 }

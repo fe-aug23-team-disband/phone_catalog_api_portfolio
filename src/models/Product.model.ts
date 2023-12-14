@@ -36,6 +36,11 @@ export default class Product extends Model {
     id: string;
     @Column({
         type: DataTypes.STRING,
+        allowNull: false
+    })
+    basename: string
+    @Column({
+        type: DataTypes.STRING,
         unique: true,
         allowNull: false
     })
@@ -74,7 +79,7 @@ export default class Product extends Model {
         return this.priceRegular - (this.priceRegular * this.discount.value / 100)
     };
     // @ts-ignore
-    set priceDiscount(value) {
+    set priceDiscount() {
         throw new Error("This value is not modifiable")
     }
 

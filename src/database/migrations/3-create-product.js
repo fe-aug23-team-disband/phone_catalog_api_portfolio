@@ -10,6 +10,10 @@ module.exports = {
         defaultValue: Sequelize.UUIDV4,
         allowNull: false,
       },
+      basename: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       namespaceId: {
         type: Sequelize.STRING,
         allowNull: false,
