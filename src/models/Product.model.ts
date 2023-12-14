@@ -76,7 +76,7 @@ export default class Product extends Model {
 
     @Column(DataTypes.VIRTUAL)
     get priceDiscount(): number {
-        return this.priceRegular - (this.priceRegular * this.discount.value / 100)
+        return Math.ceil(this.priceRegular - (this.priceRegular * this.discount.value / 100))
     };
     // @ts-ignore
     set priceDiscount(value) {
