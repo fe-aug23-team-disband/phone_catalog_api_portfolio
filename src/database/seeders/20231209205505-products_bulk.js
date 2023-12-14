@@ -42,6 +42,7 @@ module.exports = {
         await queryInterface.bulkInsert("Products", [
           {
             id: product_id,
+            basename: data.namespaceId,
             namespaceId: slugify(data.name, { lower: true, replacement: '-' }),
 
             name: data.name,
