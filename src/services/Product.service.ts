@@ -42,7 +42,7 @@ export const get = async ({ filters, limit = 10, offset = 0, category }: QueryPa
             OrderStatement.push(['time_created', "DESC"])
         }
 
-        return Product.findAll({
+        return Product.findAndCountAll({
             include: [
                 {
                     model: Category,

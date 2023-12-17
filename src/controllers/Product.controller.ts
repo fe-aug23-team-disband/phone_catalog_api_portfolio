@@ -3,7 +3,7 @@ import * as ProductService from '../services/Product.service'
 
 export const get = async (req: Request, res: Response) => {
     const {
-        category,
+        category = req.baseUrl.slice(1),
         query = '',
         page = 0,
         limit = 10
@@ -29,29 +29,28 @@ export const get = async (req: Request, res: Response) => {
             prevPage: Math.floor(offset/+limit) - 1 >= 0 ? Math.floor(offset/+limit) - 1 : null
         }
         const resBody: { [key: string]: any } = {
-            count: products.length,
+            total: products.count,
+            onPage: products.rows.length,
             nextPage: null,
             prevPage: null,
-            data: products,
+            data: products.rows,
         }
 
-        if (products.length >= +limit) {
+        if (products.rows.length >= +limit) {
             const nextSearchParams = new URLSearchParams()
 
-            nextSearchParams.append('category', category.toString())
             nextSearchParams.append('limit', limit.toString())
             nextSearchParams.append('page', paginationNav.nextPage.toString())
             if (query) {
                 nextSearchParams.append('query', query.toString())
             }
 
-            resBody.nextPage = `/products?${nextSearchParams.toString()}`
+            resBody.nextPage = `/${category}?${nextSearchParams.toString()}`
         }
 
         if (paginationNav.prevPage !== null) {
             const prevSearchParams = new URLSearchParams()
 
-            prevSearchParams.append('category', category.toString())
             prevSearchParams.append('limit', limit.toString())
             if (paginationNav.prevPage > 0) {
                 prevSearchParams.append('page', paginationNav.prevPage.toString())
@@ -60,7 +59,7 @@ export const get = async (req: Request, res: Response) => {
                 prevSearchParams.append('query', query.toString())
             }
 
-            resBody.prevPage  = `/products?${prevSearchParams.toString()}`
+            resBody.prevPage  = `/${category}?${prevSearchParams.toString()}`
         }
 
         return res.send(resBody)
@@ -130,14 +129,8 @@ export const getRecommended = async (req: Request, res: Response) => {
     })
 
     if (recommended) {
-        res.send({
-            count: recommended.length,
-            data: recommended
-        })
+        res.send(recommended)
     } else {
-        res.send({
-            count: 0,
-            data: []
-        })
+        res.send([])
     }
 }

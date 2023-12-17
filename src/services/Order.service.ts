@@ -25,7 +25,7 @@ export const get = async () => {
             attributes: { exclude: ['owner_id'] }
         })
     } catch (e) {
-        return null
+        return Promise.reject("Server Error")
     }
 }
 
@@ -52,7 +52,7 @@ export const getById = async ({ id }: { id: string }) => {
 
         return order
     } catch (e) {
-        return null
+        return Promise.reject("Server Error")
     }
 }
 
@@ -65,6 +65,8 @@ export const create = async ({ user_id, products }: { user_id: string, products:
         }, { transaction: t })
 
         await Product_Order.bulkCreate(products.map(([product_id, count]) => {
+            console.log(product_id, order.id)
+
             return {
                 order_id: order.id,
                 product_id,
@@ -75,10 +77,8 @@ export const create = async ({ user_id, products }: { user_id: string, products:
         await t.commit()
         return order
     } catch (e) {
-        console.log(e)
-
         await t.rollback()
-        return null;
+        return Promise.reject("Server Error")
     }
 }
 
@@ -101,9 +101,7 @@ export const remove = async ({ id }: { id: string }) => {
         await t.commit()
         return res
     } catch (e) {
-        console.log(e)
-
         await t.rollback()
-        return null
+        return Promise.reject("Server Error")
     }
 }

@@ -1,8 +1,9 @@
-import {BeforeCreate, BeforeUpdate, Column, HasMany, Model, Table} from "sequelize-typescript";
+import {BeforeCreate, BeforeUpdate, Column, HasMany, HasOne, Model, Table} from "sequelize-typescript";
 import {DataTypes} from "sequelize";
 import {md5} from "js-md5";
 
 import Order from "./Order.model";
+import Session from "./Session.model";
 
 @Table({
     modelName: 'User',
@@ -44,6 +45,9 @@ export default class User extends Model {
 
     @HasMany(() => Order, 'owner_id')
     orders: Order[]
+
+    @HasOne(() => Session, "user_id")
+    session: Session | null
 
     @BeforeUpdate
     @BeforeCreate
