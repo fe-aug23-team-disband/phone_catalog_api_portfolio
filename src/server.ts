@@ -5,17 +5,24 @@ require('dotenv').config();
 import express from 'express';
 import sequelize from "./database/db";
 import cors from 'cors';
+import cookieParser from "cookie-parser"
 
 import ProductRouter from "./routers/Product.router";
 import OrderRouter from "./routers/Order.router";
+import AuthRouter from "./routers/Authentication.router";
 
 const app = express();
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(cors())
 
-app.use('/products', ProductRouter)
 app.use('/orders', OrderRouter)
+app.use('/auth', AuthRouter)
+
+app.use('/:category', ProductRouter)
+app.use('/products', ProductRouter)
+
 
 app.get('/', async (req, res) => {
     res.send({
