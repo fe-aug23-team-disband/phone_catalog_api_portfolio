@@ -19,10 +19,7 @@ app.use(cors())
 
 app.use('/orders', OrderRouter)
 app.use('/auth', AuthRouter)
-
 app.use('/:category', ProductRouter)
-app.use('/products', ProductRouter)
-
 
 app.get('/', async (req, res) => {
     res.send({
