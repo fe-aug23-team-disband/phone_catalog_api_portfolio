@@ -12,8 +12,12 @@ type QueryParams = {
     offset?: number,
     filters?: {
         query?: string,
+        byDiscount?: boolean,
         byDate?: boolean,
-        byDiscount?: boolean
+    },
+    sort?: {
+        field?: string,
+        isDESC?: boolean
     }
 }
 
@@ -23,7 +27,7 @@ type WhereStatement = {
     }
 }
 
-export const get = async ({ filters, limit = 10, offset = 0, category }: QueryParams) => {
+export const get = async ({ filters, limit = 10, offset = 0, category, sort }: QueryParams) => {
     try {
         let whereStatement: WhereStatement = {}
         let OrderStatement: OrderItem[] = []
@@ -40,6 +44,10 @@ export const get = async ({ filters, limit = 10, offset = 0, category }: QueryPa
 
         if (filters?.byDate) {
             OrderStatement.push(['time_created', "DESC"])
+        }
+
+        if (sort?.field) {
+            OrderStatement.push([sort.field, sort.isDESC ? "DESC" : "ASC"])
         }
 
         return Product.findAndCountAll({
@@ -71,13 +79,13 @@ export const get = async ({ filters, limit = 10, offset = 0, category }: QueryPa
             order: OrderStatement
         })
     } catch (e) {
-        return null
+        return Promise.reject("Server error")
     }
 }
 
 export const getByNamespaceId = async ({ namespaceId }: { namespaceId: string }) => {
     try {
-        return Product.findOne({
+        const product = await Product.findOne({
             include: [
                 {
                     model: Image,
@@ -103,8 +111,10 @@ export const getByNamespaceId = async ({ namespaceId }: { namespaceId: string })
                 exclude: ['category_id', 'discount_id']
             },
         })
+
+        return product
     } catch (e) {
-        return null
+        return Promise.reject("Server error")
     }
 }
 
@@ -134,6 +144,6 @@ export const getRecommended = async ({ basename, limit }: { basename: string, li
             limit,
         })
     } catch (e) {
-        return null
+        return Promise.reject("Server error")
     }
 }
