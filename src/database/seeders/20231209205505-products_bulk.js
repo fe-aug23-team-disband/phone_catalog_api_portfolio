@@ -1,7 +1,6 @@
 'use strict';
 
 const {v4: uuidv4} = require("uuid");
-const slugify = require("slugify");
 const path = require("path");
 const {readdir, readFile} = require("node:fs/promises");
 
@@ -56,7 +55,7 @@ module.exports = {
             {
               id: product_id,
               basename: data.namespaceId,
-              namespaceId: slugify(data.name, { lower: true, replacement: '-' }),
+              namespaceId: data.id,
 
               name: data.name,
               capacityAvailable: data.capacityAvailable,
