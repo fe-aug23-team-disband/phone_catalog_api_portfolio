@@ -7352,7 +7352,7 @@
 	{
 		"id": "apple-iphone-14-pro-128gb-gold",
 		"namespaceId": "apple-iphone-14-pro",
-		"name": "Apple iPhone 14 Pro 128GB Space Gold",
+		"name": "Apple iPhone 14 Pro 128GB Gold",
 		"capacityAvailable": [
 			"128GB",
 			"256GB",
@@ -7414,7 +7414,7 @@
 	{
 		"id": "apple-iphone-14-pro-256gb-gold",
 		"namespaceId": "apple-iphone-14-pro",
-		"name": "Apple iPhone 14 Pro 256GB Space Gold",
+		"name": "Apple iPhone 14 Pro 256GB Gold",
 		"capacityAvailable": [
 			"128GB",
 			"256GB",
@@ -7476,7 +7476,7 @@
 	{
 		"id": "apple-iphone-14-pro-512gb-gold",
 		"namespaceId": "apple-iphone-14-pro",
-		"name": "Apple iPhone 14 Pro 512GB Space Gold",
+		"name": "Apple iPhone 14 Pro 512GB Gold",
 		"capacityAvailable": [
 			"128GB",
 			"256GB",
@@ -7538,7 +7538,7 @@
 	{
 		"id": "apple-iphone-14-pro-1tb-gold",
 		"namespaceId": "apple-iphone-14-pro",
-		"name": "Apple iPhone 14 Pro 1TB Space Gold",
+		"name": "Apple iPhone 14 Pro 1TB Gold",
 		"capacityAvailable": [
 			"128GB",
 			"256GB",
