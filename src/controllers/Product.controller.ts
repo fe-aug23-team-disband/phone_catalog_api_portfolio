@@ -147,11 +147,7 @@ export const getRecommended = async (req: Request, res: Response) => {
                 limit: +limit
             })
 
-            if (recommended) {
-                res.send(recommended)
-            } else {
-                res.send([])
-            }
+            return res.send(recommended)
         }
 
         return res.sendStatus(404)
