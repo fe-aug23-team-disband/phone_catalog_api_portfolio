@@ -6,6 +6,16 @@ const {readdir, readFile} = require("node:fs/promises");
 
 const convertCssColorNameToHex = require('convert-css-color-name-to-hex');
 
+function randomDate(startDate, endDate) {
+  startDate = new Date(startDate);
+  endDate = new Date(endDate);
+
+  const timeDifference = endDate.getTime() - startDate.getTime();
+  const randomTime = Math.random() * timeDifference;
+
+  return new Date(startDate.getTime() + randomTime);
+}
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface) {
@@ -26,6 +36,7 @@ module.exports = {
 
         for (const data of dataList) {
           const product_id= uuidv4()
+          const product_date = randomDate("2020-01-01", "2023-12-31")
           const hexColors = data.colorsAvailable.map((color) => {
             let res = convertCssColorNameToHex(color);
 
@@ -69,6 +80,9 @@ module.exports = {
               camera: data.camera || "-",
               zoom: data.zoom || "-",
               cell: data.cell,
+
+              time_created: product_date,
+              time_updated: product_date,
 
               category_id: Categories[pathToJson.replace(".json", "")],
               discount_id: "76580edd-b8df-4f7b-81a5-c8e4268c821b"
