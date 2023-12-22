@@ -570,7 +570,7 @@
 		]
 	},
 	{
-		"id": "apple-ipad-air-4th-gen-256gb-rose-gold",
+		"id": "apple-ipad-air-4th-gen-256gb-rosegold",
 		"namespaceId": "apple-ipad-air-4th-gen",
 		"name": "Apple iPad Air (4th Gen) 256GB Rose Gold",
 		"capacityAvailable": [
@@ -581,12 +581,12 @@
 		"priceRegular": 749,
 		"priceDiscount": 699,
 		"colorsAvailable": [
-			"rose gold",
+			"rosegold",
 			"silver",
 			"green",
-			"sky blue"
+			"skyblue"
 		],
-		"color": "rose gold",
+		"color": "rosegold",
 		"images": [
 			"http://res.cloudinary.com/dkbtpei6h/image/upload/v1702905124/phone_catalog_images/tablets/apple-ipad-air-4th-gen/rose-gold/apple-ipad-air-4th-gen-rose-gold-00.webp",
 			"http://res.cloudinary.com/dkbtpei6h/image/upload/v1702905125/phone_catalog_images/tablets/apple-ipad-air-4th-gen/rose-gold/apple-ipad-air-4th-gen-rose-gold-01.webp",
@@ -695,10 +695,10 @@
 		"priceRegular": 599,
 		"priceDiscount": 549,
 		"colorsAvailable": [
-			"rose gold",
+			"rosegold",
 			"silver",
 			"green",
-			"sky blue"
+			"skyblue"
 		],
 		"color": "silver",
 		"images": [
@@ -752,10 +752,10 @@
 		"priceRegular": 749,
 		"priceDiscount": 699,
 		"colorsAvailable": [
-			"rose gold",
+			"rosegold",
 			"silver",
 			"green",
-			"sky blue"
+			"skyblue"
 		],
 		"color": "silver",
 		"images": [
@@ -809,10 +809,10 @@
 		"priceRegular": 749,
 		"priceDiscount": 699,
 		"colorsAvailable": [
-			"rose gold",
+			"rosegold",
 			"silver",
 			"green",
-			"sky blue"
+			"skyblue"
 		],
 		"color": "green",
 		"images": [
@@ -865,10 +865,10 @@
 		"priceRegular": 599,
 		"priceDiscount": 549,
 		"colorsAvailable": [
-			"rose gold",
+			"rosegold",
 			"silver",
 			"green",
-			"sky blue"
+			"skyblue"
 		],
 		"color": "green",
 		"images": [
@@ -910,7 +910,7 @@
 		]
 	},
 	{
-		"id": "apple-ipad-air-4th-gen-64gb-sky-blue",
+		"id": "apple-ipad-air-4th-gen-64gb-skyblue",
 		"namespaceId": "apple-ipad-air-4th-gen",
 		"name": "Apple iPad Air (4th Gen) 64GB Sky Blue",
 		"capacityAvailable": [
@@ -921,10 +921,10 @@
 		"priceRegular": 599,
 		"priceDiscount": 549,
 		"colorsAvailable": [
-			"rose gold",
+			"rosegold",
 			"silver",
 			"green",
-			"sky blue"
+			"skyblue"
 		],
 		"color": "sky blue",
 		"images": [
@@ -967,7 +967,7 @@
 		]
 	},
 	{
-		"id": "apple-ipad-air-4th-gen-256gb-sky-blue",
+		"id": "apple-ipad-air-4th-gen-256gb-skyblue",
 		"namespaceId": "apple-ipad-air-4th-gen",
 		"name": "Apple iPad Air (4th Gen) 256GB Sky Blue",
 		"capacityAvailable": [
@@ -978,10 +978,10 @@
 		"priceRegular": 749,
 		"priceDiscount": 699,
 		"colorsAvailable": [
-			"rose gold",
+			"rosegold",
 			"silver",
 			"green",
-			"sky blue"
+			"skyblue"
 		],
 		"color": "sky blue",
 		"images": [
